@@ -5,11 +5,12 @@ import files, and share them with other people as viewers or editors.
 
 Built for the Ajaia "AI-Native Full Stack Developer" assignment with Next.js, SQLite and Tiptap.
 
-- **Live demo:** TODO: paste the deployed URL here
-- **Walkthrough video:** see [`VIDEO_URL.txt`](VIDEO_URL.txt)
+- **Live demo:** https://ajaia-ai-llc-native-full-stack-developer-assignm-production.up.railway.app
+- **Walkthrough video:** https://www.loom.com/share/8fb1c25f0d5b46c788ec5bb26293140b
 - **Architecture and tradeoffs:** [`ARCHITECTURE.md`](ARCHITECTURE.md)
 - **AI workflow note:** [`AI_WORKFLOW.md`](AI_WORKFLOW.md)
 - **What is in this submission:** [`SUBMISSION.md`](SUBMISSION.md)
+- **How it maps to the evaluation criteria:** [`EVALUATION.md`](EVALUATION.md)
 
 ![Editor](docs/screenshots/02-editor.png)
 
@@ -107,8 +108,9 @@ restarts.
    runs `npm run build` and starts with `npm start`.
 2. Add a **Volume** to the service (right-click the project canvas or use the command palette) with
    mount path `/data`. The app finds it through `RAILWAY_VOLUME_MOUNT_PATH` and stores `app.db` there.
-3. Add the variable `SESSION_SECRET` (any long random string).
-4. Generate a public domain in the service's networking settings and open it.
+3. Add the variables `SESSION_SECRET` (any long random string) and `PORT` = `8080`.
+4. In the service's Settings, under Networking, generate a public domain with target port `8080`
+   and open it.
 
 **Render**
 
