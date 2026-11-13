@@ -7,9 +7,9 @@
 
 | Item | Where |
 | --- | --- |
-| Live product URL | TODO: paste the deployed URL |
-| Walkthrough video | TODO: paste the link (also in `VIDEO_URL.txt`) |
-| Source code | this folder (and the GitHub repository, if shared) |
+| Live product URL | https://ajaia-ai-llc-native-full-stack-developer-assignm-production.up.railway.app |
+| Walkthrough video | https://www.loom.com/share/8fb1c25f0d5b46c788ec5bb26293140b (also in `VIDEO_URL.txt`) |
+| Source code | this folder, and on GitHub: https://github.com/fezancs/Ajaia-AI-LLC-Native-Full-Stack-Developer-Assignment |
 
 ## Test accounts
 
@@ -30,6 +30,7 @@ Use a second browser or a private window to be two users at once.
 | `README.md` | Setup and run instructions, reviewer tour, supported file types, deployment |
 | `ARCHITECTURE.md` | Architecture note: priorities, design decisions, tradeoffs |
 | `AI_WORKFLOW.md` | AI workflow note: tools, where AI helped, what was changed or rejected, verification |
+| `EVALUATION.md` | How the submission maps to the evaluation criteria, and which optional stretch was built |
 | `SUBMISSION.md` | This file |
 | `VIDEO_URL.txt` | Link to the walkthrough video |
 | `app/`, `components/`, `lib/` | Application source (Next.js, TypeScript) |
