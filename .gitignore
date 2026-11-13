@@ -1,0 +1,13 @@
+node_modules
+.next
+data
+*.db
+*.db-*
+.env*
+!.env.example
+next-env.d.ts
+*.tsbuildinfo
+
+# Written by `next dev` for AI coding tools; not part of this project
+AGENTS.md
+CLAUDE.md

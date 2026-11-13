@@ -1,0 +1,4 @@
+Plain text import
+second line of first paragraph
+
+Second paragraph with <tags> & symbols.

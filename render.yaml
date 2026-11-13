@@ -1,0 +1,26 @@
+# Render blueprint (alternative to Railway; see README "Deployment").
+#
+# SQLite needs a disk that survives restarts. On Render that means a paid instance
+# with a persistent disk, which is what this file sets up (Starter + 1 GB disk).
+#
+# To try it on the Free plan instead: set `plan: free`, delete the `disk` block and
+# the DATABASE_PATH variable. It will run, but Free instances have an ephemeral
+# filesystem, so all documents reset to the seed data whenever the service
+# restarts or sleeps (after 15 minutes without traffic).
+services:
+  - type: web
+    name: ajaia-docs
+    runtime: node
+    plan: starter
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /login
+    envVars:
+      - key: DATABASE_PATH
+        value: /var/data/app.db
+      - key: SESSION_SECRET
+        generateValue: true
+    disk:
+      name: ajaia-docs-data
+      mountPath: /var/data
+      sizeGB: 1
