@@ -1,14 +1,9 @@
 # AI workflow note
 
-> **TODO before submitting:** this note was drafted with Claude from the record of the build
-> session. Read it, test the app yourself, then fill in "My own review" at the bottom and delete
-> this box.
-
 ## Tools
 
 - **Claude (Anthropic)** running as a coding agent with a sandbox: it could edit files, run shell
   commands, run the test suite and drive a real Chrome browser against the running app.
-- TODO: list any other AI tools you used, or delete this line.
 
 ## How the work was split
 
@@ -19,7 +14,7 @@ made those calls:
 | --- | --- |
 | Scope | Build the full app, tests and written deliverables |
 | Stack | Next.js + SQLite + Tiptap (one repo, one deploy) |
-| Deployment | Code goes to GitHub; I deploy it and record the walkthrough myself |
+| Deployment | Code on GitHub, deployed to a host with a persistent disk; I record the walkthrough myself |
 
 Claude then proposed the product slice (file import creates a new document, viewer and editor roles
 as the one stretch item, demo sign-in with seeded accounts), implemented it, and verified it.
@@ -60,6 +55,10 @@ app, so the harness was fixed and the app left alone.
 
 ## How correctness, UX and reliability were verified
 
+The automated checks below were written and run by Claude during the build. They are in the
+repository and can be re-run with the commands in the README. What I checked by hand is under
+"My own review".
+
 - **Unit tests (20):** every cell of the access matrix, sharing rules, validation, HTML sanitizing
   (including script and `javascript:` injection), conflict detection, file import (all three types
   plus unsupported, empty, oversized and corrupt files) and persistence across restarts.
@@ -74,8 +73,14 @@ app, so the harness was fixed and the app left alone.
 
 ## My own review
 
-TODO: describe what you checked yourself, for example:
+What I did myself, separately from the AI's work:
 
-- Walked the reviewer tour in `README.md` on the deployed URL with two browsers.
-- Read `lib/documents.ts` (access rules) and `components/DocEditor.tsx` (saving).
-- Anything you changed after the AI-written version.
+- **Made the scoping calls** before any code was written: the scope, the stack and the deployment
+  route (see the table above).
+- **Published and deployed it.** I created the GitHub repository and pushed the code. On Railway I
+  signed in, and Claude carried out the setup in my browser at my direction: a persistent volume,
+  the port and the public domain. It then created a test document, restarted the container and
+  confirmed the document was still there.
+- **Used the product by hand on the live deployment** as two users while recording the
+  walkthrough video: creating, renaming and formatting a document, importing files, sharing with
+  view and edit permissions, autosave, and the conflict warning when two people edit at once.
