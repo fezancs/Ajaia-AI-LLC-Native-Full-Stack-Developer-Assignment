@@ -10,7 +10,7 @@ Built for the Ajaia "AI-Native Full Stack Developer" assignment with Next.js, SQ
 - **Architecture and tradeoffs:** [`ARCHITECTURE.md`](ARCHITECTURE.md)
 - **AI workflow note:** [`AI_WORKFLOW.md`](AI_WORKFLOW.md)
 - **What is in this submission:** [`SUBMISSION.md`](SUBMISSION.md)
-- **How it maps to the evaluation criteria:** [`EVALUATION.md`](EVALUATION.md)
+- **How it maps to the brief:** [`EVALUATION.md`](EVALUATION.md)
 
 ![Editor](docs/screenshots/02-editor.png)
 
@@ -73,12 +73,13 @@ Production mode: `npm run build && npm start`.
 
 **Supported import types:** `.txt` (blank lines become paragraphs), `.md` (headings, emphasis, lists,
 links, quotes, code) and `.docx` (headings, bold, italic, lists, links). Images, tables and
-fonts/colours in imported files are dropped; the text of a table is kept.
+fonts/colours in imported files are dropped; the text of a table is kept. Text and Markdown files
+can be UTF-8 (with or without a byte-order mark) or UTF-16, as Windows tools often save them.
 
 ## Tests
 
 ```bash
-npm test          # 20 unit tests: access rules, sharing, validation, sanitizing, conflicts, import, persistence
+npm test          # 22 unit tests: access rules, sharing, validation, sanitizing, conflicts, import, persistence
 npm run typecheck
 ```
 

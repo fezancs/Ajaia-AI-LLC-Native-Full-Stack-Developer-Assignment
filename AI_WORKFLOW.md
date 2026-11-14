@@ -59,7 +59,7 @@ The automated checks below were written and run by Claude during the build. They
 repository and can be re-run with the commands in the README. What I checked by hand is under
 "My own review".
 
-- **Unit tests (20):** every cell of the access matrix, sharing rules, validation, HTML sanitizing
+- **Unit tests (22):** every cell of the access matrix, sharing rules, validation, HTML sanitizing
   (including script and `javascript:` injection), conflict detection, file import (all three types
   plus unsupported, empty, oversized and corrupt files) and persistence across restarts.
 - **Browser run (79 checks)** against the production build with three signed-in users at once:
@@ -70,6 +70,28 @@ repository and can be re-run with the commands in the README. What I checked by 
 - **Screenshots** of every screen were reviewed, including a phone-width layout.
 - **Clean install:** `npm ci`, type check, tests and production build from a fresh copy of the
   source, then the full browser run again against that build and against the dev server.
+
+## Final review before submission
+
+Before submitting, I had Claude review the repository once more from a clean clone: install, type
+check, unit tests, production build, the full browser run, and a sweep of every screen for console
+errors in production and dev mode, at desktop and phone width. All of that passed. Reading the code
+and probing edge cases turned up the following, which were fixed:
+
+- **`EVALUATION.md` was missing.** README and SUBMISSION linked to it, but it had never been
+  committed. It is now added.
+- **Text files saved on Windows.** A Markdown file saved with a byte-order mark lost its first
+  heading, and a UTF-16 text file (Notepad's "Unicode", PowerShell's `>`) imported as garbled text.
+  The importer now detects the encoding.
+- **Imports between about 1 and 2 MB.** They passed the 2 MB upload limit, then failed as
+  "Document is too large" because of a separate 1-million-character cap on document content. The
+  cap is now 5 million characters; a 2 MB document still opens in under a second and autosaves
+  normally.
+- **Access tests.** The unit tests now also cover viewers and people without access attempting
+  owner-only actions, so every cell of the access table in `ARCHITECTURE.md` is tested.
+
+Two unit tests were added (one for encodings, one for a file just under 2 MB); both failed before
+the fixes and pass after them.
 
 ## My own review
 
