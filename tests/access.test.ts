@@ -37,6 +37,8 @@ describe('document access', () => {
   it('hides unshared documents from other users (404, not 403)', () => {
     expect(status(() => getDocument(db, docId, BOB))).toBe(404);
     expect(status(() => updateDocument(db, docId, BOB, { content: '<p>hacked</p>' }))).toBe(404);
+    expect(status(() => deleteDocument(db, docId, BOB))).toBe(404);
+    expect(status(() => shareDocument(db, docId, BOB, { email: 'carol@ajaia.test' }))).toBe(404);
     expect(listDocuments(db, BOB).shared.map((d) => d.id)).not.toContain(docId);
   });
 
@@ -53,6 +55,10 @@ describe('document access', () => {
     shareDocument(db, docId, ALICE, { email: 'bob@ajaia.test', role: 'viewer' });
     expect(getDocument(db, docId, BOB).document.title).toBe('Roadmap');
     expect(status(() => updateDocument(db, docId, BOB, { title: 'Nope' }))).toBe(403);
+    expect(status(() => updateDocument(db, docId, BOB, { content: '<p>Nope</p>' }))).toBe(403);
+    expect(status(() => deleteDocument(db, docId, BOB))).toBe(403);
+    expect(status(() => shareDocument(db, docId, BOB, { email: 'carol@ajaia.test' }))).toBe(403);
+    expect(status(() => unshareDocument(db, docId, BOB, BOB))).toBe(403);
   });
 
   it('separates owned and shared documents in listings', () => {
