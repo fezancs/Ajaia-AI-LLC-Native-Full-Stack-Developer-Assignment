@@ -10,9 +10,19 @@ function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+/**
+ * Decode a .txt or .md upload. A byte-order mark is honored and dropped: Windows tools often
+ * save UTF-8 with one (left in place, it hides a leading "# Heading" from the Markdown parser)
+ * or save UTF-16 ("Unicode" in Notepad, PowerShell's `>`), which comes out garbled if read as
+ * UTF-8. Line endings are normalized to \n.
+ */
+function decodeText(data: Buffer): string {
+  const utf16 = data.length >= 2 && data[0] === 0xff && data[1] === 0xfe;
+  return new TextDecoder(utf16 ? 'utf-16le' : 'utf-8').decode(data).replace(/\r\n?/g, '\n');
+}
+
 function textToHtml(text: string): string {
   return text
-    .replace(/\r\n/g, '\n')
     .split(/\n{2,}/)
     .map((block) => block.trim())
     .filter(Boolean)
@@ -35,9 +45,9 @@ export async function convertUpload(
 
   let html: string;
   if (ext === '.txt') {
-    html = textToHtml(data.toString('utf8'));
+    html = textToHtml(decodeText(data));
   } else if (ext === '.md') {
-    html = marked.parse(data.toString('utf8'), { async: false }) as string;
+    html = marked.parse(decodeText(data), { async: false }) as string;
   } else {
     try {
       html = (await mammoth.convertToHtml({ buffer: data })).value;

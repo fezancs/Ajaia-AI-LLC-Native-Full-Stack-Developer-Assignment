@@ -16,7 +16,9 @@ export interface SharedSummary { id: string; title: string; updated_at: string; 
 export interface Share { user_id: string; name: string; email: string; role: ShareRole }
 
 const MAX_TITLE = 200;
-const MAX_CONTENT = 1_000_000; // characters of HTML
+// Characters of HTML. Must stay well above what an import at the 2 MB upload limit produces
+// (a 2 MB text file becomes about 2.1 million characters), or such imports fail as "too large".
+const MAX_CONTENT = 5_000_000;
 
 function cleanTitle(input: unknown): string {
   if (typeof input !== 'string') throw new AppError(400, 'Title must be text.');
